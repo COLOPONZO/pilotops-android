@@ -9,6 +9,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,12 +24,19 @@ import com.pilotops.android.viewmodel.LoginViewModel
 
 @Composable
 fun LoginScreen(
+    onLoginSuccess: () -> Unit,
     viewModel: LoginViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    LaunchedEffect(uiState.isAuthenticated) {
+        if (uiState.isAuthenticated) {
+            onLoginSuccess()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -67,10 +75,6 @@ fun LoginScreen(
 
         uiState.errorMessage?.let {
             Text(it)
-        }
-
-        if (uiState.isAuthenticated) {
-            Text("Sesión iniciada: ${uiState.username}")
         }
     }
 }

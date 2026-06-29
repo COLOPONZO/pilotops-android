@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.pilotops.android.ui.screens.LoginScreen
+import com.pilotops.android.app.PilotOpsApp
 import com.pilotops.android.ui.theme.theme.PilotOpsAndroidTheme
 
 class MainActivity : ComponentActivity() {
@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             PilotOpsAndroidTheme {
-                LoginScreen()
+                PilotOpsApp()
             }
         }
     }
